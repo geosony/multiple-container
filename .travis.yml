@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t geosony/client-test -f ./client/Dockerfile.dev ../client
+
+script:
+  - docker run -e CI=true geosony/client-test npm run test
+
+after_success:
+  - docker build -t geosony/multi-client -f ./client
+  - docker build -t geosony/multi-nginx -f ./nginx
+  - docker build -t geosony/multi-server -f ./server
+  - docker build -t geosony/multi-worker -f ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push geosony/multi-client
+  - docker push geosony/multi-nginx
+  - docker push geosony/multi-server
+  - docker push geosony/multi-worker
+
+
+  # Take those images and push into docker hub
+
