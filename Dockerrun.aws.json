@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "geosony/multi-client",
+            "hostname": "client",
+            "essenstial": false
+        },
+        {
+            "name": "server",
+            "image": "geosony/multi-server",
+            "hostname": "api",
+            "essenstial": false
+        },
+        {
+            "name": "worker",
+            "image": "geosony/multi-worker",
+            "hostname": "worker",
+            "essenstial": false
+        },
+        {
+            "name": "nginx",
+            "image": "geosony/multi-nginx",
+            "hostname": "nginx",
+            "essenstial": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
