@@ -12,14 +12,14 @@
             "name": "server",
             "image": "geosony/multi-server",
             "hostname": "api",
-            "essenstial": false
+            "essenstial": false,
             "memory": 128
         },
         {
             "name": "worker",
             "image": "geosony/multi-worker",
             "hostname": "worker",
-            "essenstial": false
+            "essenstial": false,
             "memory": 128
         },
         {
